@@ -624,7 +624,7 @@ class Api extends Client
         $result = $this->call('/' . self::VERSION . '/' . $method . '/', $params, $requestType);
         $result = json_decode($result, true);
         if ((!empty($result['status']) && $result['status'] == 'error') || $this->getHttpCode() >= 400) {
-            throw new ApiException($result['message'], $this->getHttpCode());
+            throw new ApiException($result['info']['status'], $this->getHttpCode());
         }
         if ($result === null) {
             throw new ApiException('Wrong response', $this->getHttpCode());
